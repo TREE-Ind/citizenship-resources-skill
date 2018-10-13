@@ -15,20 +15,6 @@ class CitizenshipResources(MycroftSkill):
         self.eligibility = {'family': 'false', 'employment': 'false', 'special': 'false', 'refugee': 'false', 'victim': 'false',
                             'lottery': 'false', 'cuba': 'false', 'hrifa': 'false', 'lautenberg': 'false', 'vietnam': 'false',
                             'na_ca': 'false', 'diplomat1': 'false', 'diplomat2': 'false', 'nineteenseventytwo': 'false' }
-        self.family = False
-        self.employment = False
-        self.special = False
-        self.refugee = False
-        self.victim = False
-        self.lottery = False
-        self.cuba = False
-        self.hrifa = False
-        self.lautenberg = False
-        self.vietnam = False
-        self.na_ca = False
-        self.diplomat1 = False
-        self.diplomat2 = False
-        self.nineteenseventytwo = False
 
     @intent_file_handler('green.card.intent')
     def handle_resources_citizenship(self, message):
@@ -134,9 +120,9 @@ class CitizenshipResources(MycroftSkill):
                     self.speak_dialog('confirmed')
                     wait_while_speaking()
                 else:
-                    confirm = self.ask_yesno('start.over')
+                    start_over = self.ask_yesno('start.over')
                     wait_while_speaking()
-                    if confirm == 'yes':
+                    if start_over== 'yes':
                         #restart questionnaire
                         pass
                     else:
