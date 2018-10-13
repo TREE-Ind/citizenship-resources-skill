@@ -4,12 +4,17 @@ from mycroft.util.log import getLogger
 from mycroft.audio import wait_while_speaking
 from mycroft.skills.context import *
 
+import time
+
 
 class CitizenshipResources(MycroftSkill):
     def __init__(self):
         MycroftSkill.__init__(self)
         
     def initialize(self):
+        self.eligibility = {'family': 'false', 'employment': 'false', 'special': 'false', 'refugee': 'false', 'victim': 'false',
+                            'lottery': 'false', 'cuba': 'false', 'hrifa': 'false', 'lautenberg': 'false', 'vietnam': 'false',
+                            'na_ca': 'false', 'diplomat1': 'false', 'diplomat2': 'false', 'nineteenseventytwo': 'false' }
         self.family = False
         self.employment = False
         self.special = False
@@ -29,81 +34,118 @@ class CitizenshipResources(MycroftSkill):
     def handle_resources_citizenship(self, message):
         self.speak_dialog('green.card.eligibility')
         wait_while_speaking()
+        time.sleep(30)
         eligibility_info = self.ask_yesno('eligibility.more.info')
         wait_while_speaking()
         if eligibility_info == 'yes':
             self.speak_dialog('list.eligibility')
             wait_while_speaking()
             family = self.ask_yesno('family')
+            wait_while_speaking()
             if family == 'yes':
-                self.family = True
+                self.eligibility['family'] = 'true'
+                print(self.eligibility['family'])
             else:
                 pass
             employment = self.ask_yesno('employment')
+            wait_while_speaking()
             if employment == 'yes':
-                self.employment = True
+                self.eligibility['employment'] = 'true'
             else:
                 pass
             special = self.ask_yesno('special')
+            wait_while_speaking()
             if special == 'yes':
-                self.special = True
+                self.eligibility['special'] = 'true'
             else:
                 pass
             refugee = self.ask_yesno('refugee')
+            wait_while_speaking()
             if refugee == 'yes':
-                self.refugee = True
+                self.eligibility['refugee'] = 'true'
             else:
                 pass
             victim = self.ask_yesno('victim')
+            wait_while_speaking()
             if victim == 'yes':
-                self.victim = True
+                self.eligibility['victim'] = 'true'
             else:
                 pass
             lottery = self.ask_yesno('lottery')
+            wait_while_speaking()
             if lottery == 'yes':
-                self.lottery = True
+                self.eligibility['lottery'] = 'true'
             else:
                 pass
             cuba = self.ask_yesno('cuba')
+            wait_while_speaking()
             if cuba == 'yes':
-                self.cuba = True
+                self.eligibility['cuba'] = 'true'
             else:
                 pass
             hrifa = self.ask_yesno('hrifa')
+            wait_while_speaking()
             if hrifa == 'yes':
-                self.hrifa = True
+                self.eligibility['hrifa'] = 'true'
             else:
                 pass
             lautenberg = self.ask_yesno('lautenberg')
+            wait_while_speaking()
             if lautenberg == 'yes':
-                self.lautenberg = True
+                self.eligibility['lautenberg'] = 'true'
             else:
                 pass
             vietnam = self.ask_yesno('vietnam')
+            wait_while_speaking()
             if vietnam == 'yes':
-                self.vietnam = True
+                self.eligibility['vietnam'] = 'true'
             else:
                 pass
             na_ca = self.ask_yesno('na_ca')
+            wait_while_speaking()
             if na_ca == 'yes':
-                self.na_ca = True
+                self.eligibility['na_ca'] = 'true'
             else:
                 pass
             diplomat1 = self.ask_yesno('diplomat1')
+            wait_while_speaking()
             if diplomat1 == 'yes':
                 self.diplomat1 = True
+                self.eligibility['diplomat1'] = 'true'
             else:
                 pass
             diplomat2 = self.ask_yesno('diplomat2')
+            wait_while_speaking()
             if diplomat2 == 'yes':
-                self.diplomat2 = True
+                self.eligibility['diplomat2'] = 'true'
             else:
                 pass
             nineteenseventytwo = self.ask_yesno('nineteenseventytwo')
+            wait_while_speaking()
             if nineteenseventytwo == 'yes':
-                self.nineteenseventytwo = True
+                self.eligibility['nineteenseventytwo'] = 'true'
             else:
                 pass
+            
+            if "true" in self.eligibility.values():
+                confirm = self.ask_yesno('eligible')
+                wait_while_speaking()
+                if confirm == 'yes':
+                    self.speak_dialog('confirmed')
+                    wait_while_speaking()
+                else:
+                    confirm = self.ask_yesno('start.over')
+                    wait_while_speaking()
+                    if confirm == 'yes':
+                        #restart questionnaire
+                        pass
+                    else:
+                        self.speak_dialog('call')
+                        wait_while_speaking()
+            else:
+                self.speak_dialog('not.eligible')
+                wait_while_speaking()
+                
             
         else:
             self.speak_dialog('here.to.assist')
