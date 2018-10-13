@@ -11,13 +11,29 @@ class CitizenshipResources(MycroftSkill):
         
     def initialize(self):
         self.family = False
+        self.employment = False
+        self.special = False
+        self.refugee = False
+        self.victim = False
+        self.lottery = False
+        self.cuba = False
+        self.hrifa = False
+        self.lautenberg = False
+        self.vietnam = False
+        self.na_ca = False
+        self.diplomat1 = False
+        self.diplomat2 = False
+        self.nineteenseventytwo = False
 
     @intent_file_handler('green.card.intent')
     def handle_resources_citizenship(self, message):
         self.speak_dialog('green.card.eligibility')
+        wait_while_speaking()
         eligibility_info = self.ask_yesno('eligibility.more.info')
+        wait_while_speaking()
         if eligibility_info == 'yes':
             self.speak_dialog('list.eligibility')
+            wait_while_speaking()
             family = self.ask_yesno('family')
             if family == 'yes':
                 self.family = True
@@ -91,6 +107,7 @@ class CitizenshipResources(MycroftSkill):
             
         else:
             self.speak_dialog('here.to.assist')
+            wait_while_speaking()
 
 
 def create_skill():
