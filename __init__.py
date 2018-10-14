@@ -18,9 +18,9 @@ class CitizenshipResources(MycroftSkill):
         
         socket.setdefaulttimeout(20)
         
-        self.sender = "info@tree.industries"
-        self.recipient = "info@tree.industries"
-        self.password = "globalhack7" # Your SMTP password for Gmail
+        self.sender = ""
+        self.recipient = ""
+        self.password = "" # Your SMTP password for Gmail
         
     def initialize(self):
         self.eligibility = {'family': 'false', 'employment': 'false', 'special': 'false', 'refugee': 'false', 'victim': 'false',
