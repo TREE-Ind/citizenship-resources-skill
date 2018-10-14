@@ -3,6 +3,8 @@ from mycroft.skills.core import MycroftSkill
 from mycroft.util.log import getLogger
 from mycroft.audio import wait_while_speaking
 from mycroft.skills.context import *
+from mycroft.messagebus.client.ws import WebsocketClient
+from mycroft.messagebus.message import Message
 
 import time
 import smtplib
@@ -152,7 +154,7 @@ class CitizenshipResources(MycroftSkill):
                     start_over = self.ask_yesno('start.over')
                     wait_while_speaking()
                     if start_over== 'yes':
-                        #restart questionnaire
+                        self.emitter.emit(Message('recognizer_loop:utterance', {"utterances": ["How do I apply for a green card"]}))
                         pass
                     else:
                         call = self.ask_yesno('call')
@@ -194,7 +196,7 @@ class CitizenshipResources(MycroftSkill):
             start_over = self.ask_yesno('start.appointment.over')
             wait_while_speaking()
             if start_over== 'yes':
-                pass
+                self.emitter.emit(Message('recognizer_loop:utterance', {"utterances": ["I need to schedule an appointment"]}))
             else:
                 pass
             
